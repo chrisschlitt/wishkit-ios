@@ -67,14 +67,16 @@ public struct WishKit {
     
     /// FeedbackView that renders the list of feedback.
     public struct FeedbackListView: View {
-        
-        public init () { }
+        let selectedWishState: LocalWishState
+        public init (selectedWishState: LocalWishState = .library(.planned)) {
+            self.selectedWishState = selectedWishState
+        }
         
         public var body: some View {
         #if os(macOS) || os(visionOS)
-            WishlistContainer(wishModel: WishModel())
+            WishlistContainer(wishModel: WishModel(), selectedWishState: selectedWishState)
         #else
-            WishlistViewIOS(wishModel: WishModel())
+            WishlistViewIOS(selectedWishState: selectedWishState, wishModel: WishModel())
         #endif
         }
     }

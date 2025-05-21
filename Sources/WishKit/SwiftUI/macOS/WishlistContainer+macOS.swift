@@ -10,13 +10,13 @@
 import SwiftUI
 import WishKitShared
 
-enum LocalWishState: Hashable, Identifiable {
+public enum LocalWishState: Hashable, Identifiable {
     case all
     case library(WishState)
 
-    var id: String { description }
+    public var id: String { description }
 
-    var description: String {
+    public var description: String {
         switch self {
         case .all:
             return "All"
@@ -25,7 +25,7 @@ enum LocalWishState: Hashable, Identifiable {
         }
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(description)
     }
 }
@@ -47,7 +47,8 @@ struct WishlistContainer: View {
     @ObservedObject
     private var wishModel: WishModel
 
-    init(wishModel: WishModel) {
+    init(wishModel: WishModel, selectedWishState: LocalWishState = .all) {
+        self.selectedWishState = selectedWishState
         self.wishModel = wishModel
         self.wishModel.fetchList()
     }
